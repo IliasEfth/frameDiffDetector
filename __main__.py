@@ -2,6 +2,7 @@ import cv2
 import numpy as np
 from enum import Enum
 import os
+import json
 
 from snipTool import SnipToolFactory
 from screenRecorder import ScreenRecorder
@@ -14,6 +15,9 @@ class App:
         EXIT = 2
         RUNNING = 3
     
+    class ConfigProperties(Enum):
+        THRESHOLD="THRESHOLD"
+    
     def __init__(self):
         self.recorder = ScreenRecorder('Live')
         self.snipToolFactory = SnipToolFactory()
@@ -21,9 +25,30 @@ class App:
         self.dialogService = DialogService()
         
         self.state = self.AppState.RUNNING
-        self.threshold = 6.0
+        self.config = self.loadConfig()
+        self.threshold = None
+        
+        configThreshold = self.config.get(self.ConfigProperties.THRESHOLD.value)
+        
+        if configThreshold is None:
+            self.threshold = 6.0
+        else:
+            self.threshold = configThreshold
+            
         self.prevFrame = None
         self.baseFilePath = "./../images"
+    
+    def loadConfig(self):
+        path = './config.json'
+        
+        if not os.path.exists(path):
+            return {}        
+        
+        file = open(path)
+        data = json.load(file)
+        file.close()
+        
+        return data
     
     def start(self):
         box = self.getNewBoxFromSnipTool()
