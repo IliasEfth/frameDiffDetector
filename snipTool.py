@@ -1,5 +1,4 @@
 import tkinter as tk
-from tkinter import Canvas
 from box import Box
 
 class SnipToolFactory:
@@ -16,7 +15,7 @@ class SnipTool(tk.Tk):
         self.start_y = None
         self.rect = None
         
-        self.canvas = Canvas(self, cursor="tcross")
+        self.canvas = tk.Canvas(self, cursor="tcross")
         self.canvas.pack(fill=tk.BOTH, expand=True)
         
         self.canvas.bind("<ButtonPress-1>", self.on_press)
