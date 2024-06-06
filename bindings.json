@@ -1,0 +1,7 @@
+{
+    "PAUSE": "p,P",
+    "QUIT": "q,Q",
+    "NEWBOX": "b,B",
+    "SAVE": "s,S",
+    "NEWTHRESHOLD": "t,T"
+}
