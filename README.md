@@ -6,4 +6,4 @@ pip install numpy\
 pip install enum\
 pip install tk\
 pip install pillow\
-pip install ctypes\
+pip install ctypes
